@@ -1,23 +1,78 @@
-<div>
-  <form (ngSubmit)="editing ? updateMarca() : addMarca()">
-    <label for="nombre">Nombre de la Marca</label>
-    <input id="nombre" [(ngModel)]="nombre" name="nombre" required placeholder="Nombre de la Marca" />
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <form [formGroup]="marcaForm" (ngSubmit)="editing ? updateMarca() : addMarca()" class="grid gap-4">
+    <div>
+      <label for="nombre" class="block font-semibold">Brand Name</label>
+      <input id="nombre" formControlName="nombre" required placeholder="Brand Name"
+        class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-400" />
+    </div>
 
-    <label for="pais">País de Origen</label>
-    <input id="pais" [(ngModel)]="pais" name="pais" required placeholder="País de Origen" />
+    <div>
+      <label for="pais" class="block font-semibold">Country of Origin</label>
+      <input id="pais" formControlName="pais" required placeholder="Country of Origin"
+        class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-400" />
+    </div>
 
-    <label for="anio">Año de Fundación</label>
-    <input id="anio" [(ngModel)]="anio" name="anio" placeholder="Año de Fundación" />
+    <div>
+      <label for="anio" class="block font-semibold">Founding Year</label>
+      <input id="anio" formControlName="anio" type="number" required placeholder="Founding Year"
+        class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-400" />
+    </div>
 
-    <button type="submit">{{ editing ? 'Actualizar Marca' : 'Agregar Marca' }}</button>
+    <div>
+      <label for="imagen" class="block font-semibold">Brand Image</label>
+      <input id="imagen" type="file" (change)="onImageSelect($event)" class="block w-full text-sm text-gray-600" />
+      <div *ngIf="selectedImage" class="mt-2">
+        <img id="imagePreview" width="100" height="100" [src]="selectedImage" class="rounded-md shadow-md" />
+      </div>
+    </div>
+
+    <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition">
+      {{ editing ? 'Update Brand' : 'Add Brand' }}
+    </button>
   </form>
 
-  <h3>Marcas de Carros:</h3>
-  <ul>
-    <li *ngFor="let marca of marcas">
-      {{ marca.nombre }} - {{ marca.pais }} - {{ marca.anio }}
-      <button (click)="editMarca(marca)">Editar</button>
-      <button (click)="deleteMarca(marca)">Eliminar</button>
-    </li>
-  </ul>
+  <div *ngIf="mensajesDeError.length" class="mt-4 text-red-500">
+    <ul class="list-disc pl-5">
+      <li *ngFor="let mensaje of mensajesDeError">{{ mensaje }}</li>
+    </ul>
+  </div>
+
+  <h3 class="text-lg font-bold mt-6">Marcas de Carros</h3>
+  <h3 class="text-gray-700">Total de Marcas: {{ contadorMarcas() }}</h3>
+
+
+  <div class="overflow-x-auto mt-4">
+    <table class="w-full border-collapse border border-gray-300">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="border p-2">ID</th>
+          <th class="border p-2">Name</th>
+          <th class="border p-2">Country</th>
+          <th class="border p-2">Year</th>
+          <th class="border p-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let marca of marcas" class="hover:bg-gray-100">
+          <td class="border p-2 text-center">{{ marca.id }}</td>
+          <td class="border p-2 text-center">{{ marca.nombre }}</td>
+          <td class="border p-2 text-center">{{ marca.pais }}</td>
+          <td class="border p-2 text-center">{{ marca.anio }}</td>
+          <td class="border p-2 flex gap-2 justify-center">
+            <button class="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500" (click)="editMarca(marca)">
+              Edit
+            </button>
+            <button class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600" (click)="deleteMarca(marca)">
+              Delete
+            </button>
+            <button class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" (click)="verDetalles(marca.id)">
+              View Details
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-carrusel-imagenes [images]="images" class="mt-6"></app-carrusel-imagenes>
 </div>

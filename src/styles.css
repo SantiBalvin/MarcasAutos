@@ -1,1 +1,160 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+input {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+input:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+button {
+  padding: 10px 15px;
+  background: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+button:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+button:active {
+  background: #003f7f;
+  transform: scale(1);
+}
+
+button:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  font-size: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+
+thead th {
+  background: #007BFF;
+  color: white;
+  padding: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+
+tbody tr:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+tbody tr:hover {
+  background: #eef;
+}
+
+td button {
+  padding: 7px 12px;
+  margin: 0 5px;
+  background: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+td button:hover {
+  background: #0056b3;
+}
+
+td button:active {
+  background: #003f7f;
+}
+
+h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #007BFF;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  form {
+    padding: 15px;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+}
+
+
+.carousel-container {
+  width: 100%;
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-container > div {
+  display: flex;
+  width: 100%; /* Hace que cada imagen ocupe todo el espacio */
+}
+
+.carousel-image {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+
+

@@ -1,35 +1,53 @@
 import { Injectable } from '@angular/core';
 
+export interface Marca {
+  id: string;
+  nombre: string;
+  pais: string;
+  anio: number;
+  imagen: string | null;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class MarcaCarroService {
   private localStorageKey = 'marcasCarros';
 
-  // Obtener marcas desde localStorage
-  getMarcas() {
+  getMarcas(): Marca[] {
     const marcas = localStorage.getItem(this.localStorageKey);
     return marcas ? JSON.parse(marcas) : [];
   }
 
-  // Guardar nueva marca
-  saveMarca(marca: any) {
+  saveMarca(marca: Omit<Marca, 'id'>) {
     const marcas = this.getMarcas();
-    marcas.push(marca);
+    const nuevaMarca: Marca = {
+      ...marca,
+      id: crypto.randomUUID(),
+    };
+
+    if (marcas.some((m) => m.nombre.trim().toLowerCase() === marca.nombre.trim().toLowerCase())) {
+      throw new Error('The brand already exists.');
+    }
+
+    if (!marca.imagen) {
+      throw new Error('You must select an image for the brand.');
+    }
+
+    marcas.push(nuevaMarca);
     localStorage.setItem(this.localStorageKey, JSON.stringify(marcas));
   }
 
-  // Actualizar marca existente
-  updateMarca(updatedMarca: any) {
-    const marcas = this.getMarcas().map((marca: any) =>
-      marca.nombre === updatedMarca.nombre ? updatedMarca : marca
+
+  updateMarca(updatedMarca: Marca) {
+    const marcas = this.getMarcas().map((marca) =>
+      marca.id === updatedMarca.id ? updatedMarca : marca
     );
     localStorage.setItem(this.localStorageKey, JSON.stringify(marcas));
   }
 
-  // Eliminar marca
-  deleteMarca(nombre: string) {
-    const marcas = this.getMarcas().filter((marca: any) => marca.nombre !== nombre);
+  deleteMarca(id: string) {
+    const marcas = this.getMarcas().filter((marca) => marca.id !== id);
     localStorage.setItem(this.localStorageKey, JSON.stringify(marcas));
   }
 }

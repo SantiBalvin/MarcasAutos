@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MarcarCarroComponent } from './components/marcar-carro/marcar-carro.component';
+import { MarcarCarroRoutingModule } from './moduls/marcar-carro-routing.module';
+import { MarcaCarroModule } from './moduls/marcar-carro.module';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, MarcarCarroComponent],  // Importar componentes standalone
+  imports: [CommonModule, MarcarCarroRoutingModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

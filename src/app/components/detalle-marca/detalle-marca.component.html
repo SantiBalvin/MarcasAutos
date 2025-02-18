@@ -1,0 +1,26 @@
+<div *ngIf="marca; else notFound" class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <h2 class="text-2xl font-bold text-gray-800 mb-4">Brand Details</h2>
+  <div class="space-y-2 text-gray-700">
+    <p><strong>ID:</strong> {{ marca.id }}</p>
+    <p><strong>Name:</strong> {{ marca.nombre }}</p>
+    <p><strong>Country:</strong> {{ marca.pais }}</p>
+    <p><strong>Year:</strong> {{ marca.anio }}</p>
+  </div>
+
+  <div *ngIf="marca.imagen" class="mt-4">
+    <p class="font-semibold">Imagen:</p>
+    <img [src]="marca.imagen" alt="Imagen de la marca" class="w-full h-100 object-cover rounded-lg shadow-md" />
+  </div>
+  <p *ngIf="!marca.imagen" class="text-gray-500 mt-2"><strong>Image:</strong> No disponible</p>
+
+  <a href="/" class="inline-block mt-6 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700">Return
+    to list</a>
+</div>
+
+<ng-template #notFound>
+  <div class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg text-center">
+    <p class="text-red-500 text-lg font-semibold">The brand was not found.</p>
+    <a href="/" class="inline-block mt-4 px-4 py-2 bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700">Return
+      to list</a>
+  </div>
+</ng-template>
